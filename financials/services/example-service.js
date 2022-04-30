@@ -1,3 +1,12 @@
+import fetch from "node-fetch";
+import pg from 'pg';
+const pool = new pg.Pool({
+  user: 'guest',
+  host: 'localhost',
+  database: 'guest',
+  password: 'guest',
+  port: 5432,
+})
 
 class ExampleService {
 
@@ -20,3 +29,5 @@ class ExampleService {
     }
 
 }
+
+export default ExampleService;
