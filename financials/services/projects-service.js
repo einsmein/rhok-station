@@ -78,7 +78,6 @@ class AccountsService {
                 ${contactPersonId?contactPersonId:'NULL'},
                ' ${objectVersion}'
             );`
-            console.log(insertScript)
             return await pool.query(insertScript,[])
         })
     }
