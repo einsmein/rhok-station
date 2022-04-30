@@ -1,1 +1,1 @@
-mkdir .data
+mkdir -p .data .data/postgres
