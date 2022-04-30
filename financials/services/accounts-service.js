@@ -7,7 +7,10 @@ const pool = new pg.Pool({
   password: 'guest',
   port: 5432,
 })
+const exists = (value)=>{
+    return value?true:false
 
+}
 class AccountsService {
 
     constructor(url) {
@@ -63,7 +66,7 @@ class AccountsService {
                 ${number},
                 '${name}',
                 '${projectGroupNumber}',
-                ${customerNumber},
+                ${customerNumber?customerNumber:'NULL'},
                 '${isClosed}',
                 ${mileage},
                 '${isBarred}',
@@ -72,11 +75,11 @@ class AccountsService {
                 '${lastUpdated}',
                 '${description}',
                 '${deliveryDate}',
-                ${contactPersonId},
+                ${contactPersonId?contactPersonId:'NULL'},
                ' ${objectVersion}'
             );`
             console.log(insertScript)
-            await pool.query(insertScript,[])
+            return await pool.query(insertScript,[])
         })
     }
 
