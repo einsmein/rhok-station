@@ -9,33 +9,15 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - $PWD/.data:/home
-      - $PWD/postgres-storage:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U guest"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - ./.data:/home
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   metabase:
     image: metabase/metabase
     ports:
       - 3000:3000
     network_mode: "host"
-    depends_on:
-      postgres:
-        condition: service_healthy
-
-volumes:
-  metabase-storage:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: .data/metabase
-  postgres-storage:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: .data/postgres
-
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8765:8080
