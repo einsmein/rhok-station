@@ -9,8 +9,13 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./.data:/home
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - $PWD/.data:/home
+      - postgres-storage:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U guest"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   metabase:
     image: metabase/metabase
     ports:
