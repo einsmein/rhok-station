@@ -1,14 +1,13 @@
 # RHoK Station
 
 ## Start the stack
-Running the following commands.
-
+1. Copy `.env.example` to `.env` and set the variables.
+2. Running the following commands.
 ```
-./setup.sh
-docker compose up
+./scripts/setup.sh
+./scripts/deploy.sh
 ```
-
-`setup.sh` scripts should contain all necessary setup.
+`scripts/setup.sh` scripts should contain all necessary setup.
 
 
 ## Services
