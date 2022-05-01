@@ -24,7 +24,7 @@ class DistributionsService {
         })
         return await res.json();
     }
-
+    
     async uploadData(data) {
         data.collection.forEach(async(distribution) => {
             const {
