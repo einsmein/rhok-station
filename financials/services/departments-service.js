@@ -1,12 +1,5 @@
 import fetch from "node-fetch";
-import pg from 'pg';
-const pool = new pg.Pool({
-  user: 'guest',
-  host: 'localhost',
-  database: 'guest',
-  password: 'guest',
-  port: 5432,
-})
+import pool from "../db/pgPool.js";
 
 class DepartmentsService {
 
