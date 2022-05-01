@@ -23,3 +23,8 @@ CREATE TABLE projects (
   ,contactPersonId    Integer 
   ,objectVersion      VARCHAR(255)
 );
+
+CREATE TABLE departments(
+   number           INTEGER  NOT NULL PRIMARY KEY 
+  ,name             VARCHAR(255) NOT NULL
+);
