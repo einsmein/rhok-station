@@ -48,9 +48,9 @@ class AccountsService {
                     ,quantity1
                     ,quantity2
                     ,bookedInvoice
-                    ,invoiceNumber  
+                    ,invoiceNumber
+                    ,project
                 } = entry;
-               
                 const insertScript = `INSERT INTO entries(
                     account,
                     amount,
@@ -67,7 +67,8 @@ class AccountsService {
                     quantity1,
                     quantity2,
                     bookedInvoice,
-                    invoiceNumber
+                    invoiceNumber,
+                    project
                 ) VALUES (
                     ${account.accountNumber}
                         ,${amount}
@@ -85,6 +86,7 @@ class AccountsService {
                         ,${quantity2?quantity2:'NULL'}
                         ,${bookedInvoice?bookedInvoice.bookedInvoiceNumber:'NULL'}
                         ,${invoiceNumber?invoiceNumber:'NULL'}
+                        ,${project?project.projectNumber:'NULL'}
                 );`
                 return await pool.query(insertScript,[])
 
