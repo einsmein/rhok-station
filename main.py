@@ -33,13 +33,7 @@ def upload_visits_file(file: UploadFile = File(...), username: str = Depends(aut
         for row in csv_reader:
             writer.writerow(row)
 
-    try:
-        insert_data('visits_data/' + file.filename)
-    except:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Inserting duplicate data"
-        )
+    insert_data('visits_data/' + file.filename)
 
     return {"filename": file.filename}
 
