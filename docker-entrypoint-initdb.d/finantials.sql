@@ -28,3 +28,10 @@ CREATE TABLE departments(
    number           INTEGER  NOT NULL PRIMARY KEY 
   ,name             VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE distributions(
+   departmentalDistributionNumber INTEGER  NOT NULL PRIMARY KEY
+  ,name                           VARCHAR(255) NOT NULL
+  ,barred                         BOOLEAN NOT NULL
+  ,distributionType               VARCHAR(255) NOT NULL
+);
