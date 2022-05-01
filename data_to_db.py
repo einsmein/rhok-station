@@ -32,28 +32,38 @@ def insert_data(file_path):
     tablename = "visits"
 
     # Build SQL code to drop table if exists and create table
-    # sqlQueryCreate = f'DROP TABLE IF EXISTS {tablename};\n CREATE TABLE {tablename} (Date DATE,\n Enters INTEGER);'
+    # sqlQueryCreate = f'DROP TABLE IF EXISTS {tablename};\n CREATE TABLE {tablename} (Date DATE UNIQUE,\n Enters INTEGER);'
     # cur.execute(sqlQueryCreate)
 
     # Get the visits data
     df = get_csv_from_file(file_path)
 
+    # Generate query to get the data that matches the date in the csv files. a.k.a data duplicates
+    vals = '\', \''.join([str(d)[:-9] for d  in df['Start Time'].tolist()])
+    sqlQueryGetDuplicates = f"SELECT * FROM {tablename} WHERE Date IN ('{vals}')"
+    cur.execute(sqlQueryGetDuplicates)
+    # Get the output from the query
+    duplicated_data = [d[0] for d in cur.fetchall()]
+    # Select dataframe values that DON'T match duplicates
+    df = df[df['Start Time'].isin(duplicated_data) == False]
+
     for index, row in df.iterrows():
+
         sqlQueryInsert = f'INSERT INTO {tablename}( Date, Enters) VALUES( TO_TIMESTAMP(\'{row["Start Time"]}\',\'YYYY-MM-DD\'), {row["Enters"]})'
         try:
+            cur = conn.cursor()
             cur.execute(sqlQueryInsert)
-        except:
-            print(f'[INFO] Duplicate instance. {row}')
+            conn.commit()
             cur.close()
-            raise
-
-    # Save changes and close connection
-    conn.commit()
-    cur.close()
+        except Exception as temp:
+            print(f'[INFO] Duplicate instance. {row}')
+            print(temp)
+            cur.close()
+            # raise
 
 
 if __name__ == "__main__":
     try:
-        insert_data("/home/antoni/hackaton/data/data_2.csv")
+        insert_data("/home/antoni/hackaton/data/data_1.csv")
     except IntegrityError as err:
         pass
