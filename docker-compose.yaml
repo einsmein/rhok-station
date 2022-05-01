@@ -21,3 +21,11 @@ services:
     restart: always
     ports:
       - 8765:8080
+  financials:
+    build: './financials/'
+    volumes:
+      - node_volumes:/usr/src/app/node_volumes
+    environment:
+      - POSTGRES_HOST=postgres
+volumes:
+  node_volumes:
