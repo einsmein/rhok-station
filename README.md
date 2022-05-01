@@ -1,15 +1,16 @@
 # RHoK Station
 
 ## Start the stack
-Running the following commands.
-
+1. Copy `.env.example` to `.env` and set the variables.
+2. Running the following commands.
 ```
-./setup.sh
-docker compose up
+./scripts/setup.sh
+./scripts/deploy.sh
 ```
+`scripts/setup.sh` scripts should contain all necessary setup.
 
-`setup.sh` scripts should contain all necessary setup.
-
+## Setup metabase
+To integrate with postgres, specify host as `postgres`.
 
 ## Services
 
@@ -30,4 +31,5 @@ After your enviroment spins up you can go to localhost:8765 and there you can in
 
 ### Financials
 
-This service pull all the data needed for visualization of expenses per department to seed the database run the command `docker container exec rhok-station-financials-1 node /usr/src/app/index.js`
+This service pull all the data needed for visualization of expenses per department 
+to seed the database run the command `docker container exec rhok-station-financials-1 node /usr/src/app/index.js`
