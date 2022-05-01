@@ -1,10 +1,25 @@
-from fastapi import FastAPI, File, UploadFile
+import os
+from fastapi import Depends, FastAPI, File, UploadFile, HTTPException, status
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+import secrets
 import csv, codecs
 
 app = FastAPI()
+security = HTTPBasic()
+
+def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
+    correct_username = secrets.compare_digest(credentials.username, 'test')
+    correct_password = secrets.compare_digest(credentials.password, 'test')
+    if not (correct_username and correct_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email/username or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return credentials.username
 
 @app.post("/uploadfile/")
-def upload_visits_file(file: UploadFile = File(...)):
+def upload_visits_file(file: UploadFile = File(...), username: str = Depends(authenticate)):
     data = file.file
     csv_reader = csv.reader(codecs.iterdecode(data, 'utf-8'), delimiter=',')
 
