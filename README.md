@@ -9,6 +9,8 @@
 ```
 `scripts/setup.sh` scripts should contain all necessary setup.
 
+## Setup metabase
+To integrate with postgres, specify host as `postgres`.
 
 ## Services
 
