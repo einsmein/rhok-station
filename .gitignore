@@ -1,6 +1,3 @@
 .data/
-visits_data/
-.devcontainer/
-__pycache__
 .env
 */node_modules/
