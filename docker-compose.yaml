@@ -12,7 +12,7 @@ services:
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       - postgres-storage:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U guest" ]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -33,6 +33,14 @@ services:
     restart: always
     ports:
       - 8765:8080
+  financials:
+    build: './financials/'
+    volumes:
+      - node_volumes:/usr/src/app/node_volumes
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=station
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
 
 volumes:
   metabase-storage:
@@ -40,10 +48,11 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: $PWD/.data/metabase
+      device: .data/metabase
   postgres-storage:
     driver: local
     driver_opts:
       o: bind
       type: none
       device: .data/postgres
+  node_volumes:
