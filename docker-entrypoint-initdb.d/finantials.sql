@@ -35,3 +35,14 @@ CREATE TABLE distributions(
   ,barred                         BOOLEAN NOT NULL
   ,distributionType               VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE department_distribution(
+   department INTEGER NOT NULL,
+   distribution INTEGER NOT NULL,
+   percentage INTEGER NOT NULL,
+   FOREIGN KEY(department) 
+   REFERENCES departments(number),
+   FOREIGN KEY(distribution) 
+   REFERENCES distributions(departmentalDistributionNumber),
+   PRIMARY KEY(department,distribution)
+);

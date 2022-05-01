@@ -52,7 +52,6 @@ class AccountsService {
                 )`;
             return await pool.query(insertScript,[])
 
-            console.log(insertScript)
         });
         
     }

@@ -27,13 +27,12 @@ class DepartmentsService {
     }
 
     async uploadData(data) {
-        console.log(data)
         data.collection.forEach(async(account) => {
             const {
                 departmentNumber,
                 name,
-
-            } = account;    
+                distributions
+            } = account;
             const insertScript = `INSERT INTO departments(
                 number,
                 name
@@ -44,7 +43,6 @@ class DepartmentsService {
         
             return await pool.query(insertScript,[])
 
-            console.log(insertScript)
         });
         
     }

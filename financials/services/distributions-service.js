@@ -26,14 +26,16 @@ class DistributionsService {
     }
 
     async uploadData(data) {
-        console.log(data)
         data.collection.forEach(async(distribution) => {
             const {
                 departmentalDistributionNumber,
                 name,
                 barred,
                 distributionType,
-            } = distribution;    
+                distributions,
+            } = distribution;
+
+            
             const insertScript = `INSERT INTO distributions(
                 departmentalDistributionNumber,
                 name,
@@ -46,7 +48,25 @@ class DistributionsService {
                     '${distributionType}'
                 )`;
         
-            return await pool.query(insertScript,[])
+            const result = await pool.query(insertScript,[])
+            distributions.forEach(async(department)=>{
+                const {percentage} = department;
+                const {departmentNumber} = department.department
+
+                const insertScript = `INSERT INTO department_distribution(
+                    department,
+                    distribution,
+                    percentage
+                    ) VALUES (
+                        ${departmentNumber},
+                        ${departmentalDistributionNumber},
+                        ${percentage}
+                    )`;
+                console.log(insertScript)
+                await pool.query(insertScript,[])
+            })
+            
+            return result
 
         });
     }
