@@ -18,8 +18,8 @@ class DepartmentsService {
         const res = await fetch(this.url,{
             method: 'GET',
             headers: {
-                'X-AgreementGrantToken': 'demo',
-                'X-AppSecretTken': 'demo'
+                "x-appsecrettoken": "demo",
+                "x-agreementgranttoken": "demo"
             }
         })
         //console.log(await res.json())
@@ -34,15 +34,15 @@ class DepartmentsService {
                 name,
 
             } = account;    
-            const insertScript = `INSERT INTO accounts(
-                departmentNumber,
-                name,
-                name) VALUES (
+            const insertScript = `INSERT INTO departments(
+                number,
+                name
+                ) VALUES (
                     ${departmentNumber},
                     '${name}'
                 )`;
         
-          //  return await pool.query(insertScript,[])
+            return await pool.query(insertScript,[])
 
             console.log(insertScript)
         });
