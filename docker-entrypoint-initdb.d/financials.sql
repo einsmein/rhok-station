@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS accounts (
 );
 
 CREATE TABLE projects (
-   number             INTEGER 
+   number             INTEGER PRIMARY KEY
   ,name               VARCHAR(255)
   ,projectGroupNumber Integer 
   ,customerNumber     INTEGER 
@@ -64,8 +64,11 @@ CREATE TABLE entries(
   ,quantity2                INTEGER 
   ,bookedInvoice            INTEGER 
   ,invoiceNumber            INTEGER
+  ,project                  INTEGER
   ,FOREIGN KEY(account) 
    REFERENCES accounts(accountNumber)
+  ,FOREIGN KEY(project) 
+   REFERENCES projects(number)
   ,FOREIGN KEY(departmentalDistribution) 
    REFERENCES distributions(departmentalDistributionNumber)
 );
