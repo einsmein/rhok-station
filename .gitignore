@@ -3,4 +3,6 @@ visits_data/
 .devcontainer/
 __pycache__
 .env
+.csv
 */node_modules/
+visits_data/

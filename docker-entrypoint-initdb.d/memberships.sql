@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS membership(
     address_city varchar(50),
     address_zip varchar(20),
     address_counry varchar(3),
-    profile_phone integer,
+    profile_phone varchar(50),
     rebilling_date Date,
     joined TIMESTAMP,
     updated TIMESTAMP,
