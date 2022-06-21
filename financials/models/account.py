@@ -1,6 +1,10 @@
 from sqlalchemy import Column, Integer, String, Numeric
 from .Base import Base
 class Account(Base):
+    """
+    Class responsible for managing account data:
+    https://restdocs.e-conomic.com/#accounts
+    """
     __tablename__ = 'accounts'
     account_number = Column(Integer, primary_key=True)
     account_type = Column(String(255))
