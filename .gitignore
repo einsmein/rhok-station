@@ -6,3 +6,4 @@ __pycache__
 .csv
 */node_modules/
 visits_data/
+*/env/
