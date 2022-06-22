@@ -2,6 +2,7 @@ import os
 
 from sqlalchemy import create_engine
 
+from services.departments_service import DepartmentsService
 from services.accounts_service import AccountsService
 
 REST_URL = 'https://restapi.e-conomic.com/'
@@ -12,6 +13,9 @@ def main():
     PG_PASSWORD = os.environ.get('PG_PASSWORD')
     url = f'postgresql+psycopg2://{PG_USER}:{PG_PASSWORD}@localhost:5432/'
     engine = create_engine(url)
+
+    DepartmentsService(REST_URL+'departments',engine).insert_data()
+
     AccountsService(REST_URL+'accounts',engine).insert_data()
 
 main()
