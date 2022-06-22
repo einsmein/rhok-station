@@ -24,7 +24,6 @@ class DepartmentsService:
         
         with Session(self.engine) as session:
             for department in data['collection']:
-                print(department)
                 query = session.query(Department).where(
                     Department.department_number == department['departmentNumber']
                 )

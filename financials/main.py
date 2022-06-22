@@ -15,7 +15,6 @@ def main():
     engine = create_engine(url)
 
     DepartmentsService(REST_URL+'departments',engine).insert_data()
-
     AccountsService(REST_URL+'accounts',engine).insert_data()
 
 main()
