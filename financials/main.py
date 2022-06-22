@@ -3,6 +3,7 @@ import os
 from sqlalchemy import create_engine
 
 from services.departments_service import DepartmentsService
+from services.projects_service import ProjectsService
 from services.accounts_service import AccountsService
 
 REST_URL = 'https://restapi.e-conomic.com/'
@@ -15,6 +16,8 @@ def main():
     engine = create_engine(url)
 
     DepartmentsService(REST_URL+'departments',engine).insert_data()
+    ProjectsService(REST_V12_URL+'projects', engine).insert_data()
+
     AccountsService(REST_URL+'accounts',engine).insert_data()
 
 main()
